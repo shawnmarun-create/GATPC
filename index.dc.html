@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#fff; }
+  a { color:#1E2A6E; }
+  a:hover { color:#E31E2A; }
+  @keyframes logoPulse { 0%,100%{ transform:scale(1);} 50%{ transform:scale(1.06);} }
+  @keyframes spin { to { transform:rotate(360deg);} }
+  @keyframes ripple { 0%{ transform:scale(.85); opacity:.6;} 100%{ transform:scale(1.25); opacity:0;} }
+  @keyframes logoIn { from { opacity:0; transform:scale(.7) rotate(-8deg);} to { opacity:1; transform:scale(1) rotate(0);} }
+  @keyframes wordIn { from { opacity:0; transform:translateY(14px);} to { opacity:1; transform:none;} }
+  @keyframes sweep { 0%{ transform:translateX(-60%);} 100%{ transform:translateX(230%);} }
+  @keyframes marquee { from { transform:translateX(0);} to { transform:translateX(-50%);} }
+  @keyframes floatIn { from { opacity:0; transform:translateY(30px);} to { opacity:1; transform:translateY(0);} }
+  .rv { opacity:0; transform:translateY(30px); transition:opacity .7s ease, transform .7s ease; }
+  .rv.in { opacity:1; transform:none; }
+  .hero-h1 { font-size:clamp(30px,5.2vw,58px); }
+  .card:hover { transform:translateY(-8px); box-shadow:0 18px 40px rgba(20,25,60,0.16) !important; }
+  .card:hover .card-img { transform:scale(1.07); }
+  .card:hover .card-vid { opacity:1; }
+  .navlink2 { position:relative; }
+  .navlink2:hover { color:#E31E2A !important; }
+  @media (max-width: 900px) {
+    .desk-nav { display:none !important; }
+    .tagline { display:none !important; }
+  }
+  @media (max-width: 1150px) {
+    .tagline { display:none !important; }
+    .util-hide { display:none !important; }
+    .burger { display:flex !important; }
+    .g2, .g3 { grid-template-columns:1fr !important; }
+    .split { grid-template-columns:1fr !important; gap:28px !important; }
+    .pad { padding-left:22px !important; padding-right:22px !important; }
+    .hero { min-height:82vh !important; }
+  }
+</style>
+</helmet>
+
+<div style="font-family:'Inter',sans-serif;color:#1a1d29;background:#fff;overflow-x:hidden">
+
+  <sc-if value="{{ showSplash }}" hint-placeholder-val="{{ true }}">
+    <div style="position:fixed;inset:0;z-index:9999;background:#080b2b;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;{{ splashStyle }}">
+      <video autoplay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsinline="{{ true }}" data-ambient="1" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.28">
+        <source src="assets/all-products.mp4" type="video/mp4" />
+      </video>
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,rgba(30,42,110,0.55) 0%,rgba(8,11,43,0.96) 70%)"></div>
+      <div style="position:absolute;top:-10%;left:-10%;width:60%;height:120%;background:linear-gradient(100deg,transparent,rgba(255,255,255,0.055),transparent);animation:sweep 3.4s ease-in-out infinite"></div>
+
+      <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:30px;padding:0 24px;text-align:center">
+        <div style="position:relative;width:230px;height:230px;display:flex;align-items:center;justify-content:center">
+          <div style="position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,255,255,0.12)"></div>
+          <div style="position:absolute;inset:0;border-radius:50%;border:2px solid transparent;border-top-color:#E31E2A;border-right-color:#3d55c9;animation:spin 2.6s linear infinite"></div>
+          <div style="position:absolute;inset:18px;border-radius:50%;background:rgba(255,255,255,0.05);animation:ripple 2.8s ease-out infinite"></div>
+          <div style="width:158px;height:158px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 24px 70px rgba(0,0,0,0.5);padding:24px;box-sizing:border-box;animation:logoIn 1.1s cubic-bezier(.2,.8,.2,1) both">
+            <img src="gatpc-logo.png" alt="GATPC Investments" style="width:100%;height:100%;object-fit:contain" />
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:14px;align-items:center">
+          <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+            <sc-for list="{{ splashWords }}" as="w" hint-placeholder-count="4">
+              <span style="color:#fff;font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(16px,2.6vw,26px);letter-spacing:1px;animation:wordIn .8s ease both;{{ w.delay }}">{{ w.text }}</span>
+            </sc-for>
+          </div>
+          <div style="color:#8f96c7;font-size:12.5px;letter-spacing:5px;text-transform:uppercase;animation:wordIn .9s ease .9s both">Equipping Zimbabwe since day one</div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:6px">
+          <div style="width:min(340px,72vw);height:3px;background:rgba(255,255,255,0.14);border-radius:3px;overflow:hidden">
+            <div style="height:100%;background:linear-gradient(90deg,#3d55c9,#E31E2A);border-radius:3px;{{ loaderBarStyle }}"></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <span style="color:#c7cbec;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px">{{ pctLabel }}</span>
+            <span style="color:#4b5599">·</span>
+            <span style="color:#8f96c7;font-size:12.5px;letter-spacing:1px">{{ loadingLine }}</span>
+          </div>
+        </div>
+
+        <button onclick="{{ skipSplash }}" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.28);color:#dfe3ff;padding:11px 30px;border-radius:30px;font-size:12px;cursor:pointer;letter-spacing:3px;white-space:nowrap;margin-top:8px;animation:wordIn .8s ease 1.4s both">ENTER SITE</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <a href="https://wa.me/263778081617" target="_blank" style="position:fixed;bottom:26px;right:24px;z-index:600;width:60px;height:60px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 26px rgba(0,0,0,0.32);text-decoration:none" title="Chat with us on WhatsApp">
+    <svg width="30" height="30" viewBox="0 0 32 32" fill="none"><path d="M16 4.6C10 4.6 5 9.6 5 15.7c0 2.3.7 4.4 1.9 6.2l-1.3 4.7 4.8-1.3c1.7 1 3.7 1.5 5.6 1.5 6 0 11-4.9 11-11S22 4.6 16 4.6z" fill="#fff" fill-opacity="0.001"/><path d="M12.3 10.5c-.3-.6-.5-.6-.8-.6h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.8 6 5.2 3 1.2 3.5 1 4.2.9.6-.1 2-.8 2.3-1.6.3-.8.3-1.4.2-1.6-.1-.2-.3-.3-.6-.4-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.8.2-.2.3-.9 1.1-1.1 1.4-.2.2-.4.3-.7.1-.3-.2-1.4-.5-2.7-1.7-1-.9-1.7-2-1.9-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2 0-.5 0-.7-.1-.2-.7-1.9-1-2.6z" fill="#fff"/><path d="M16 3.2C8.9 3.2 3.2 8.9 3.2 16c0 2.5.7 4.9 2 7L3 29l6.2-2.1c2 1.1 4.4 1.7 6.8 1.7 7.1 0 12.8-5.7 12.8-12.8S23.1 3.2 16 3.2zm0 23c-2.1 0-4.1-.6-5.9-1.7l-.4-.2-3.7 1.2 1.2-3.6-.3-.4A10.3 10.3 0 015.4 16c0-5.9 4.7-10.6 10.6-10.6S26.6 10.1 26.6 16 21.9 26.2 16 26.2z" fill="#fff"/></svg>
+  </a>
+
+  <button onclick="{{ toTop }}" style="position:fixed;bottom:98px;right:24px;z-index:600;width:46px;height:46px;border-radius:50%;background:#1E2A6E;border:none;color:#fff;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.25);font-size:18px;{{ toTopStyle }}">↑</button>
+
+  <div style="position:fixed;top:0;left:0;right:0;z-index:400">
+    <div class="utility" style="background:#0c1240;color:#c7cbec;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:38px;font-size:13px">
+      <div style="display:flex;align-items:center;gap:22px">
+        <a href="tel:+263778081617" style="color:#c7cbec;text-decoration:none;font-weight:500">+263 778 081 617</a>
+        <span class="util-hide" style="color:#3d4780">|</span>
+        <a class="util-hide" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=gatpcsales@gmail.com" target="_blank" style="color:#c7cbec;text-decoration:none;font-weight:500">gatpcsales@gmail.com</a>
+      </div>
+      <div class="util-hide" style="display:flex;align-items:center;gap:22px">
+        <span style="color:#8f96c7">Harare &amp; Bulawayo, Zimbabwe</span>
+        <a href="https://wa.me/263778081617" target="_blank" style="color:#25D366;text-decoration:none;font-weight:700">WhatsApp Us</a>
+      </div>
+    </div>
+  <header style="background:rgba(255,255,255,0.98);backdrop-filter:blur(10px);border-bottom:1px solid #eef0f5;display:flex;align-items:center;justify-content:space-between;padding:10px 5%;box-shadow:0 2px 18px rgba(20,25,60,0.07)">
+    <a href="index.dc.html" style="display:flex;align-items:center;gap:13px;text-decoration:none">
+      <span style="display:flex;flex-direction:column;gap:2px">
+        <span style="font-family:'Poppins',sans-serif;font-weight:800;font-size:26px;line-height:1;letter-spacing:-.5px;color:#1E2A6E">GAT<span style="color:#E31E2A">PC</span></span>
+        <span style="font-family:'Poppins',sans-serif;font-weight:600;font-size:10px;letter-spacing:5.5px;color:#1E2A6E">INVESTMENTS</span>
+      </span>
+      <span class="tagline" style="display:block;width:1px;height:42px;background:#e6e9f2;margin-left:6px"></span>
+      <span class="tagline" style="font-size:11px;line-height:1.4;color:#8a8f9f;font-weight:600;letter-spacing:.5px;white-space:nowrap">STATIONERY · FURNITURE · CONSUMABLES</span>
+    </a>
+    <nav class="desk-nav" style="display:flex;align-items:center;gap:30px">
+      <a href="index.dc.html" class="navlink2" style="color:#1E2A6E;font-weight:700;text-decoration:none;font-size:15px;border-bottom:2.5px solid #E31E2A;padding-bottom:3px">Home</a>
+      <a href="products.dc.html" class="navlink2" style="color:#3a3f52;font-weight:600;text-decoration:none;font-size:15px;transition:color .2s">Products</a>
+      <a href="about.dc.html" class="navlink2" style="color:#3a3f52;font-weight:600;text-decoration:none;font-size:15px;transition:color .2s">About</a>
+      <a href="contact.dc.html" class="navlink2" style="color:#3a3f52;font-weight:600;text-decoration:none;font-size:15px;transition:color .2s">Contact</a>
+      <a href="contact.dc.html" style="background:#E31E2A;color:#fff;text-decoration:none;padding:11px 22px;border-radius:6px;font-weight:600;font-size:14px;white-space:nowrap">Get a Quote</a>
+    </nav>
+    <button class="burger" onclick="{{ toggleMenu }}" style="display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px">
+      <span style="width:26px;height:2.5px;background:#1E2A6E;border-radius:2px;display:block"></span>
+      <span style="width:26px;height:2.5px;background:#1E2A6E;border-radius:2px;display:block"></span>
+      <span style="width:26px;height:2.5px;background:#E31E2A;border-radius:2px;display:block"></span>
+    </button>
+  </header>
+  </div>
+
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:399;background:#101545;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px">
+      <button onclick="{{ toggleMenu }}" style="position:absolute;top:22px;right:24px;background:none;border:none;color:#fff;font-size:34px;cursor:pointer;line-height:1">×</button>
+      <a href="index.dc.html" style="color:#fff;font-family:'Poppins',sans-serif;font-size:26px;font-weight:700;text-decoration:none">Home</a>
+      <a href="products.dc.html" style="color:#fff;font-family:'Poppins',sans-serif;font-size:26px;font-weight:700;text-decoration:none">Products</a>
+      <a href="about.dc.html" style="color:#fff;font-family:'Poppins',sans-serif;font-size:26px;font-weight:700;text-decoration:none">About</a>
+      <a href="contact.dc.html" style="color:#fff;font-family:'Poppins',sans-serif;font-size:26px;font-weight:700;text-decoration:none">Contact</a>
+      <a href="https://wa.me/263778081617" target="_blank" style="background:#25D366;color:#fff;text-decoration:none;padding:15px 34px;border-radius:8px;font-weight:700;margin-top:10px">WhatsApp Us</a>
+    </div>
+  </sc-if>
+
+  <section class="hero" style="position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0c1240;overflow:hidden">
+    <video id="heroVideo" data-ambient="1" autoplay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsinline="{{ true }}" poster="assets/img-stationery.jpeg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.6">
+      <source src="assets/hero-bg.mp4" type="video/mp4" />
+    </video>
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(10,14,60,0.55) 0%,rgba(8,11,45,0.9) 100%)"></div>
+    <div class="pad" style="position:relative;z-index:2;max-width:860px;padding:200px 5% 100px;color:#fff;text-align:center;display:flex;flex-direction:column;align-items:center;animation:floatIn 1s ease both">
+      <h1 class="hero-h1" style="font-family:'Poppins',sans-serif;line-height:1.06;font-weight:800;margin:0 0 22px;letter-spacing:-1px">Everything Your Office, School &amp; Business Needs — Under One Roof</h1>
+      <p style="font-size:clamp(15px,2vw,19px);line-height:1.65;color:#d6d9ee;margin:0 0 34px;max-width:640px">Stationery, computer consumables, HP toners &amp; cartridges, office and classroom furniture, interactive boards and promotional materials — supplied across Zimbabwe.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
+        <a href="products.dc.html" style="background:#E31E2A;color:#fff;text-decoration:none;padding:17px 32px;border-radius:6px;font-weight:700;font-size:15px;box-shadow:0 10px 30px rgba(227,30,42,0.35)">Explore Our Products</a>
+        <a href="contact.dc.html" style="background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.45);color:#fff;text-decoration:none;padding:17px 32px;border-radius:6px;font-weight:700;font-size:15px">Request a Quote</a>
+      </div>
+    </div>
+    <div style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:3;color:#aab0dd;font-size:12px;letter-spacing:3px;text-transform:uppercase">Scroll ↓</div>
+  </section>
+
+  <div style="background:#1E2A6E;padding:16px 0;overflow:hidden;white-space:nowrap">
+    <div style="display:inline-flex;gap:46px;animation:marquee 32s linear infinite">
+      <sc-for list="{{ marquee }}" as="m" hint-placeholder-count="24">
+        <span style="color:#c3c8ee;font-size:14px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase">{{ m }}</span>
+      </sc-for>
+    </div>
+  </div>
+
+  <section class="pad" style="padding:96px 5%;max-width:1400px;margin:0 auto">
+    <div class="rv" style="text-align:center;max-width:720px;margin:0 auto 54px">
+      <div style="color:#E31E2A;font-weight:700;letter-spacing:2px;font-size:13px;margin-bottom:10px">WHAT WE SUPPLY</div>
+      <h2 style="font-family:'Poppins',sans-serif;font-size:clamp(26px,3.6vw,38px);font-weight:800;margin:0 0 14px">One Supplier, Every Category</h2>
+      <p style="color:#666b80;font-size:16px;line-height:1.7;margin:0">Hover any category to see it in motion. Tap through for the full range — quotes on request, no prices online.</p>
+    </div>
+    <div class="g3" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px">
+      <sc-for list="{{ categories }}" as="cat" hint-placeholder-count="6">
+        <a class="card rv" href="{{ cat.link }}" style="text-decoration:none;color:inherit;border-radius:16px;overflow:hidden;background:#fff;border:1px solid #eef0f5;box-shadow:0 4px 18px rgba(20,25,60,0.06);display:flex;flex-direction:column;transition:transform .35s ease, box-shadow .35s ease">
+          <div style="position:relative;height:210px;overflow:hidden;background:#0c1240">
+            <div class="card-img" role="img" aria-label="{{ cat.title }}" style="width:100%;height:100%;background-image:url({{ cat.img }});background-size:cover;background-position:center;transition:transform .6s ease"></div>
+            <video class="card-vid" muted="{{ true }}" loop="{{ true }}" playsinline="{{ true }}" preload="none" onmouseover="{{ playHover }}" onmouseout="{{ pauseHover }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s ease">
+              <source src="{{ cat.video }}" type="video/mp4" />
+            </video>
+            <div style="position:absolute;top:14px;left:14px;background:rgba(30,42,110,0.92);color:#fff;font-size:11px;font-weight:700;letter-spacing:1.5px;padding:6px 12px;border-radius:20px">{{ cat.badge }}</div>
+          </div>
+          <div style="padding:24px">
+            <div style="font-family:'Poppins',sans-serif;font-size:19px;font-weight:700;color:#1E2A6E;margin-bottom:8px">{{ cat.title }}</div>
+            <div style="font-size:14.5px;color:#666b80;line-height:1.6;margin-bottom:14px">{{ cat.desc }}</div>
+            <div style="font-size:13.5px;font-weight:700;color:#E31E2A;letter-spacing:.5px">View range →</div>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="position:relative;min-height:520px;display:flex;align-items:center;overflow:hidden;background:#0c1240">
+    <video data-ambient="1" autoplay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsinline="{{ true }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.42">
+      <source src="assets/stock-montage.mp4" type="video/mp4" />
+    </video>
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,11,45,0.94) 0%,rgba(8,11,45,0.5) 70%)"></div>
+    <div class="pad rv" style="position:relative;z-index:2;max-width:620px;padding:80px 5%;color:#fff">
+      <div style="color:#ff8a90;font-weight:700;letter-spacing:2px;font-size:13px;margin-bottom:12px">STOCK YOU CAN COUNT ON</div>
+      <h2 style="font-family:'Poppins',sans-serif;font-size:clamp(26px,3.4vw,36px);font-weight:800;margin:0 0 18px;line-height:1.15">Deep Stock. Fast Turnaround. Owner-Managed Service.</h2>
+      <p style="font-size:16px;line-height:1.75;color:#d6d9ee;margin:0 0 26px">Our warehouses carry the everyday items your operation runs on — so your order ships when you need it, not weeks later.</p>
+      <div style="display:flex;gap:36px;flex-wrap:wrap">
+        <sc-for list="{{ counters }}" as="c" hint-placeholder-count="3">
+          <div>
+            <div style="font-family:'Poppins',sans-serif;font-size:34px;font-weight:800;color:#fff">{{ c.value }}</div>
+            <div style="font-size:12.5px;color:#aab0dd;letter-spacing:1.5px;text-transform:uppercase;margin-top:4px">{{ c.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad" style="padding:96px 5%;background:#f6f7fb">
+    <div style="max-width:1400px;margin:0 auto">
+      <div class="rv" style="text-align:center;max-width:700px;margin:0 auto 50px">
+        <div style="color:#E31E2A;font-weight:700;letter-spacing:2px;font-size:13px;margin-bottom:10px">WHY GATPC</div>
+        <h2 style="font-family:'Poppins',sans-serif;font-size:clamp(26px,3.6vw,38px);font-weight:800;margin:0">Built on Reliability &amp; Trust</h2>
+      </div>
+      <div class="g3" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:26px">
+        <sc-for list="{{ whyUs }}" as="w" hint-placeholder-count="4">
+          <div class="rv" style="background:#fff;border-radius:16px;padding:34px 26px;text-align:center;box-shadow:0 4px 16px rgba(20,25,60,0.05);border:1px solid #eef0f5">
+            <div style="width:58px;height:58px;border-radius:15px;background:{{ w.bg }};display:flex;align-items:center;justify-content:center;margin:0 auto 18px">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                <sc-if value="{{ w.iconIsShield }}" hint-placeholder-val="{{ false }}"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V5l8-3z" fill="#fff"/></sc-if>
+                <sc-if value="{{ w.iconIsTruck }}" hint-placeholder-val="{{ false }}"><path d="M2 6h11v9H2V6zm11 3h4l4 4v2h-8V9z" fill="none" stroke="#fff" stroke-width="2"/><circle cx="6" cy="18" r="1.7" fill="#fff"/><circle cx="16.5" cy="18" r="1.7" fill="#fff"/></sc-if>
+                <sc-if value="{{ w.iconIsCheck }}" hint-placeholder-val="{{ false }}"><circle cx="12" cy="12" r="10" fill="#fff" fill-opacity="0.2"/><path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></sc-if>
+                <sc-if value="{{ w.iconIsHeadset }}" hint-placeholder-val="{{ false }}"><path d="M4 13a8 8 0 0116 0v4a2 2 0 01-2 2h-1v-6h3M4 17v-4h3v6H5a1 1 0 01-1-1z" fill="none" stroke="#fff" stroke-width="1.8"/></sc-if>
+              </svg>
+            </div>
+            <div style="font-family:'Poppins',sans-serif;font-weight:700;font-size:17.5px;margin-bottom:8px">{{ w.title }}</div>
+            <div style="font-size:14.5px;color:#666b80;line-height:1.65">{{ w.desc }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad split" style="padding:96px 5%;max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:center">
+    <div class="rv">
+      <div style="color:#E31E2A;font-weight:700;letter-spacing:2px;font-size:13px;margin-bottom:10px">SMART CLASSROOMS &amp; BOARDROOMS</div>
+      <h2 style="font-family:'Poppins',sans-serif;font-size:clamp(25px,3.2vw,34px);font-weight:800;margin:0 0 18px;line-height:1.15">Interactive Boards That Change How People Learn</h2>
+      <p style="font-size:16px;color:#666b80;line-height:1.75;margin:0 0 22px">Touch-screen smart boards, whiteboards, corkboards and green felt boards — supplied and installed for schools, training rooms and boardrooms across Zimbabwe.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:28px">
+        <sc-for list="{{ boardPoints }}" as="p" hint-placeholder-count="3">
+          <div style="display:flex;gap:12px;align-items:center">
+            <div style="width:22px;height:22px;border-radius:50%;background:#1E2A6E;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 12.5l3.5 3.5L18 8" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div style="font-size:15px;color:#3a3f52;font-weight:500">{{ p }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <a href="products.dc.html#interactive" style="background:#1E2A6E;color:#fff;text-decoration:none;padding:15px 28px;border-radius:6px;font-weight:700;font-size:14.5px;display:inline-block">See interactive boards</a>
+    </div>
+    <div class="rv" style="position:relative;border-radius:18px;overflow:hidden;box-shadow:0 20px 50px rgba(20,25,60,0.18);background:#000">
+      <video id="boardVideo" loop="{{ true }}" playsinline="{{ true }}" controls="{{ true }}" poster="assets/img-smartboard.jpeg" style="width:100%;height:auto;display:block">
+        <source src="assets/interactive-board.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </section>
+
+  <section class="pad" style="padding:0 5% 96px;max-width:1400px;margin:0 auto">
+    <div class="rv" style="text-align:center;max-width:700px;margin:0 auto 44px">
+      <div style="color:#E31E2A;font-weight:700;letter-spacing:2px;font-size:13px;margin-bottom:10px">IN MOTION</div>
+      <h2 style="font-family:'Poppins',sans-serif;font-size:clamp(26px,3.6vw,38px);font-weight:800;margin:0 0 12px">The Showroom Reel</h2>
+      <p style="color:#666b80;font-size:16px;margin:0">Click any reel to play with sound.</p>
+    </div>
+    <div class="g3" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px">
+      <sc-for list="{{ reels }}" as="r" hint-placeholder-count="4">
+        <div class="rv" style="position:relative;border-radius:14px;overflow:hidden;background:#0c1240;box-shadow:0 8px 26px rgba(20,25,60,0.12)">
+          <video loop="{{ true }}" playsinline="{{ true }}" controls="{{ true }}" preload="none" style="width:100%;height:230px;object-fit:cover;display:block">
+            <source src="{{ r.src }}" type="video/mp4" />
+          </video>
+          <div style="position:absolute;top:12px;left:12px;background:rgba(8,11,45,0.8);color:#fff;font-size:11.5px;font-weight:700;letter-spacing:1.2px;padding:6px 12px;border-radius:20px;pointer-events:none">{{ r.label }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section class="pad split" style="padding:0 5% 96px;max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center">
+    <img class="rv" loading="lazy" src="assets/img-merch.jpeg" alt="Branded promotional merchandise" style="width:100%;border-radius:18px;box-shadow:0 16px 44px rgba(20,25,60,0.14)" />
+    <div class="rv">
+      <div style="color:#E31E2A;font-weight:700;letter-spacing:2px;font-size:13px;margin-bottom:10px">PROMOTIONAL MATERIALS</div>
+      <h2 style="font-family:'Poppins',sans-serif;font-size:clamp(25px,3.2vw,34px);font-weight:800;margin:0 0 18px;line-height:1.15">Your Brand, On Everything</h2>
+      <p style="font-size:16px;color:#666b80;line-height:1.75;margin:0 0 26px">Branded apparel, drinkware, notebooks, caps, keyrings and corporate gift sets — produced to your brand guidelines and delivered in bulk.</p>
+      <a href="products.dc.html#promo" style="color:#1E2A6E;font-weight:700;text-decoration:none;border-bottom:2px solid #E31E2A;padding-bottom:5px">Browse promotional range →</a>
+    </div>
+  </section>
+
+  <section style="position:relative;padding:100px 5%;overflow:hidden;background:#0c1240">
+    <video data-ambient="1" autoplay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsinline="{{ true }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.35">
+      <source src="assets/harare-skyline.mp4" type="video/mp4" />
+    </video>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,11,45,0.75),rgba(8,11,45,0.92))"></div>
+    <div class="rv" style="position:relative;z-index:1;max-width:720px;margin:0 auto;text-align:center;color:#fff">
+      <h2 style="font-family:'Poppins',sans-serif;font-size:clamp(26px,3.6vw,36px);font-weight:800;margin:0 0 16px">Ready to Stock Up?</h2>
+      <p style="font-size:16.5px;color:#c7cbec;margin:0 0 32px;line-height:1.7">Talk to our sales team about bulk orders, corporate accounts and delivery anywhere in Zimbabwe.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <a href="contact.dc.html" style="background:#E31E2A;color:#fff;text-decoration:none;padding:17px 34px;border-radius:6px;font-weight:700">Contact Sales</a>
+        <a href="https://wa.me/263778081617" target="_blank" style="background:#25D366;color:#fff;text-decoration:none;padding:17px 34px;border-radius:6px;font-weight:700">Chat on WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="pad" style="background:#0a0e33;color:#c7cbec;padding:64px 5% 28px">
+    <div class="g3" style="max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:40px">
+      <div>
+        <img src="gatpc-logo.png" alt="GATPC Investments" style="height:92px;width:auto;background:#fff;border-radius:12px;padding:12px 18px;margin-bottom:16px" />
+        <p style="font-size:14.5px;line-height:1.75;color:#9aa0c9;margin:0">Supply of primary &amp; secondary textbooks, stationery, office &amp; classroom furniture, computer consumables and promotional materials.</p>
+      </div>
+      <div>
+        <div style="color:#fff;font-weight:700;margin-bottom:14px;font-size:14px">Quick Links</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-size:14px">
+          <a href="index.dc.html" style="color:#9aa0c9;text-decoration:none">Home</a>
+          <a href="products.dc.html" style="color:#9aa0c9;text-decoration:none">Products</a>
+          <a href="about.dc.html" style="color:#9aa0c9;text-decoration:none">About Us</a>
+          <a href="contact.dc.html" style="color:#9aa0c9;text-decoration:none">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div style="color:#fff;font-weight:700;margin-bottom:14px;font-size:14px">Categories</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-size:14px">
+          <a href="products.dc.html#stationery" style="color:#9aa0c9;text-decoration:none">Stationery &amp; Crafts</a>
+          <a href="products.dc.html#office" style="color:#9aa0c9;text-decoration:none">Office Supplies</a>
+          <a href="products.dc.html#furniture" style="color:#9aa0c9;text-decoration:none">Furniture</a>
+          <a href="products.dc.html#interactive" style="color:#9aa0c9;text-decoration:none">Interactive Boards</a>
+        </div>
+      </div>
+      <div>
+        <div style="color:#fff;font-weight:700;margin-bottom:14px;font-size:14px">Contact</div>
+        <div style="font-size:14px;line-height:1.9;color:#9aa0c9">
+          9 Rhino Close, Borrowdale West, Harare<br/>
+          85 Leander Avenue, Hillside, Bulawayo<br/>
+          <a href="tel:+263778081617" style="color:#9aa0c9;text-decoration:none">+263 778 081 617</a><br/>
+          <a href="mailto:gatpcsales@gmail.com" style="color:#9aa0c9;text-decoration:none">gatpcsales@gmail.com</a>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1400px;margin:38px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,0.08);font-size:13px;color:#7a80a8;text-align:center">© 2026 GATPC Investments. All rights reserved.</div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440}}">
+class Component extends DCLogic {
+  state = { showSplash: true, fading: false, menuOpen: false, scrolled: false, pct: 0 };
+
+  componentDidMount() {
+    this._t1 = setTimeout(() => this.setState({ fading: true }), 4600);
+    this._t2 = setTimeout(() => this.setState({ showSplash: false }), 5300);
+    this._tick = setInterval(() => {
+      this.setState(s => ({ pct: Math.min(100, s.pct + 4) }));
+    }, 170);
+    setTimeout(() => clearInterval(this._tick), 4600);
+    this._onScroll = () => {
+      const s = window.scrollY > 500;
+      if (s !== this.state.scrolled) this.setState({ scrolled: s });
+    };
+    window.addEventListener('scroll', this._onScroll);
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); this._io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    this._observe = () => document.querySelectorAll('.rv:not(.in)').forEach(el => this._io.observe(el));
+    this._observe();
+    this._t3 = setTimeout(this._observe, 1200);
+    this._startAmbient = () => {
+      document.querySelectorAll('video[data-ambient]').forEach(v => {
+        v.muted = true;
+        v.playsInline = true; v.loop = true;
+        const p = v.play(); if (p && p.catch) p.catch(() => {});
+      });
+    };
+    this._startAmbient();
+    this._t4 = setTimeout(this._startAmbient, 900);
+    this._t5 = setTimeout(this._startAmbient, 3200);
+  }
+  componentDidUpdate() { if (this._observe) this._observe(); if (this._startAmbient) this._startAmbient(); }
+  componentWillUnmount() {
+    clearTimeout(this._t1); clearTimeout(this._t2); clearTimeout(this._t3); clearTimeout(this._t4); clearTimeout(this._t5); clearInterval(this._tick);
+    window.removeEventListener('scroll', this._onScroll);
+    if (this._io) this._io.disconnect();
+  }
+
+  renderVals() {
+    const categories = [
+      { title: 'Stationery, School & Crafts', badge: '01', desc: 'Exercise books, pens, art & craft supplies for every classroom.', link: 'products.dc.html#stationery', img: 'assets/g-writing.jpeg', video: 'assets/stationery-montage.mp4' },
+      { title: 'Office Supplies', badge: '02', desc: 'Filing, binding, shredding and everyday office essentials.', link: 'products.dc.html#office', img: 'assets/g-desk-essentials.jpeg', video: 'assets/office-supplies-desk.mp4' },
+      { title: 'Furniture Solutions', badge: '03', desc: 'Office desks, seating and classroom furniture built to last.', link: 'products.dc.html#furniture', img: 'assets/g-desks.jpeg', video: 'assets/office-desks.mp4' },
+      { title: 'Paper Products', badge: '04', desc: 'Copy paper, specialty paper and rolls in bulk quantities.', link: 'products.dc.html#paper', img: 'assets/g-coloured-paper.jpeg', video: 'assets/all-products.mp4' },
+      { title: 'Computer Consumables', badge: '05', desc: 'HP toners, ink cartridges and printing consumables.', link: 'products.dc.html#computer', img: 'assets/g-hp-toner.jpeg', video: 'assets/computer-consumables.mp4' },
+      { title: 'Interactive Boards', badge: '06', desc: 'Smart boards and presentation tech for modern classrooms.', link: 'products.dc.html#interactive', img: 'assets/g-whiteboards.jpeg', video: 'assets/interactive-board.mp4' },
+    ];
+    const whyUs = [
+      { title: 'Trusted Supplier', desc: 'Rated among Zimbabwe\u2019s most reliable suppliers.', bg: '#1E2A6E', iconIsShield: true },
+      { title: 'Nationwide Delivery', desc: 'Harare, Bulawayo and everywhere between.', bg: '#E31E2A', iconIsTruck: true },
+      { title: 'Full Product Range', desc: 'From pencils to boardroom furniture \u2014 one supplier.', bg: '#1E2A6E', iconIsCheck: true },
+      { title: 'Dedicated Support', desc: 'A sales team that knows your business by name.', bg: '#E31E2A', iconIsHeadset: true },
+    ];
+    const counters = [
+      { value: '14+', label: 'Product lines' },
+      { value: '2', label: 'Branches' },
+      { value: '100%', label: 'Owner managed' },
+    ];
+    const base = ['School Stationery','Teaching Essentials','Computer Consumables','Office Filing & Storage','Arts & Crafts','Design Tools','Envelopes','Counter & Exercise Books','Labels & Labelling Machines','Staplers & Punches','Fine Writing Instruments','DIY Hardware','Whiteboards & Corkboards','Green Felt Boards','HP Toners & Cartridges','Office & Classroom Furniture','Promotional Materials','Interactive Boards'];
+    const marquee = base.concat(base);
+    const boardPoints = ['Touch-screen interactive displays', 'Magnetic whiteboards & mobile stands', 'Corkboards and green felt notice boards'];
+    const reels = [
+      { label: 'THE FULL RANGE', src: 'assets/all-products.mp4' },
+      { label: 'PRODUCTS MONTAGE', src: 'assets/products-montage.mp4' },
+      { label: 'STATIONERY REEL', src: 'assets/stationery-montage.mp4' },
+      { label: 'HP TONERS & PAPER', src: 'assets/hp-toner.mp4' },
+      { label: 'CLASSROOMS WE EQUIP', src: 'assets/classroom.mp4' },
+    ];
+    return {
+      showSplash: this.state.showSplash,
+      splashStyle: this.state.fading ? 'transition:opacity .7s ease;opacity:0' : '',
+      loaderBarStyle: 'width:100%;transition:width 4.4s cubic-bezier(.4,0,.2,1)',
+      pctLabel: Math.min(100, this.state.pct) + '%',
+      loadingLine: this.state.pct < 35 ? 'Loading catalogue' : this.state.pct < 70 ? 'Preparing showroom' : 'Almost there',
+      splashWords: [
+        { text: 'STATIONERY', delay: 'animation-delay:.25s' },
+        { text: '·', delay: 'animation-delay:.35s' },
+        { text: 'FURNITURE', delay: 'animation-delay:.45s' },
+        { text: '·', delay: 'animation-delay:.55s' },
+        { text: 'CONSUMABLES', delay: 'animation-delay:.65s' },
+      ],
+      skipSplash: () => { clearInterval(this._tick); this.setState({ showSplash: false }); },
+      menuOpen: this.state.menuOpen,
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      toTop: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
+      toTopStyle: this.state.scrolled ? 'opacity:1;pointer-events:auto;transition:opacity .3s' : 'opacity:0;pointer-events:none;transition:opacity .3s',
+      playHover: (e) => { const v = e.currentTarget; v.play().catch(() => {}); },
+      pauseHover: (e) => { const v = e.currentTarget; v.pause(); v.currentTime = 0; },
+      categories, whyUs, counters, marquee, boardPoints, reels,
+    };
+  }
+}
+
+</script>
+</body>
+</html>
